@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musicien index{% endblock %}
+
+{% block body %}
+    <h1>Musicien index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CodeMusicien</th>
+                <th>NomMusicien</th>
+                <th>PrenomMusicien</th>
+                <th>AnneeNaissance</th>
+                <th>AnneeMort</th>
+                <th>Photo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for musicien in musiciens %}
+            <tr>
+                <td>{{ musicien.codeMusicien }}</td>
+                <td>{{ musicien.nomMusicien }}</td>
+                <td>{{ musicien.prenomMusicien }}</td>
+                <td>{{ musicien.anneeNaissance }}</td>
+                <td>{{ musicien.anneeMort }}</td>
+                <td>{{ musicien.photo }}</td>
+                <td>
+                    <a href="{{ path('musicien_show', {'codeMusicien': musicien.codeMusicien}) }}">show</a>
+                    <a href="{{ path('musicien_edit', {'codeMusicien': musicien.codeMusicien}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('musicien_new') }}">Create new</a>
+{% endblock %}
