@@ -3,17 +3,30 @@
 {% block title %}Compositeurs{% endblock %}
 
 {% block body %}
+    <br>
     <h1>Compositeurs</h1>
 
-
     <table class="table">
+        {% set cpt = 0 %}
         <tbody>
         <tr>
         {% for musicien in musiciens %}
-            <td>
-             <img src="data:image/png;base64,{{ musicien.base64Photo }}" height="150" width="250" alt=''>
+
+            <td style="text-align: center">
+             <img src="data:image/png;base64,{{ musicien.base64Photo }}" height="200" width="250" alt=''>
+                <br>
+                <div>
+                <a href="{{ path('musicien_show', {'codeMusicien': musicien.codeMusicien}) }}">Detail</a>
+                </div>
             </td>
-                <td> <a href="{{ path('musicien_show', {'codeMusicien': musicien.codeMusicien}) }}">detail</a> </td>
+
+        {% set cpt = cpt+1%}
+
+            {%if cpt%5==0%}
+
+            </tr><tr>
+
+            {% endif %}
 
         {% else %}
             <tr>
