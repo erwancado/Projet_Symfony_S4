@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center">Oeuvres disponibles</h1>
+
+    <table class="table">
+        {% set cpt = 0 %}
+        <tbody>
+        <tr>
+            {% for album in albums%}
+
+            <td style="text-align: center">
+                <img src="data:image/png;base64,{{ album.getBase64Pochette}}" height="200" width="250" alt=''>
+
+            </td>
+
+            {% set cpt = cpt+1%}
+
+            {%if cpt%5==0%}
+
+        </tr><tr>
+
+            {% endif %}
+
+            {% else %}
+        {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
