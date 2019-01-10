@@ -3,9 +3,12 @@
 {% block title %}Musicien{% endblock %}
 
 {% block body %}
-    <h1>Musicien {{ musicien.nomMusicien }} </h1>
+    <br>
+    <h1> {{ musicien.nomMusicien }} </h1>
     
     <img src="data:image/png;base64,{{ musicien.base64Photo }}" alt=''>
+
+    <br>
 
     <table class="table">
         <tbody>
