@@ -145,6 +145,10 @@ class Album
 
         return $this;
     }
-
+    public function getBase64Pochette(): ?string
+    {
+        $string = stream_get_contents($this->pochette);
+        return (base64_encode($string));
+    }
 
 }
