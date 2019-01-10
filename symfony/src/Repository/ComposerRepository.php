@@ -19,12 +19,22 @@ class ComposerRepository extends ServiceEntityRepository
         parent::__construct($registry, Composer::class);
     }
 
-    public function findOeuvre(Musicien $musicien)
+    public function findOeuvres(Musicien $musicien):array
     {
-        $qb = $this->createQueryBuilder('C');
-        $qb->where('C.codeMusicien = :codeMusicien')
-           ->setParameter('codeMusicien', $musicien->getCodeMusicien());
+        $entityManager = $this->getEntityManager();
 
-        return $qb->getQuery()->getResult();
+        $query = $entityManager->createQuery(
+            'SELECT oeuvre
+        FROM Entity/Musicien musicien
+        JOIN Entity/Composer composer
+        ON musicien.codeMusicien = composer.codeMusicien
+        INNER JOIN Entity/
+        WHERE p.price > :price
+        ORDER BY p.price ASC'
+        )->setParameter('price', $price);
+
+        // returns an array of Product objects
+        return $query->execute();
     }
+
 }

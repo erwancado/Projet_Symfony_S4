@@ -73,6 +73,16 @@ class Oeuvre
      */
     private $codeType;
 
+    /**
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="Album")
+     * @ORM\JoinTable(name="Composer",
+     *      joinColumns={@ORM\JoinColumn(name="Code_Musicien", referencedColumnName="Code_Musicien")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="Code_Oeuvre", referencedColumnName="Code_Oeuvre")}
+     *      )
+     */
+    private $oeuvres;
+
     public function getCodeOeuvre(): ?int
     {
         return $this->codeOeuvre;

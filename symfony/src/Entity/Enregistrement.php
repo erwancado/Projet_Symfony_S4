@@ -159,5 +159,13 @@ class Enregistrement
         return $this;
     }
 
+    public function getBase64Extrait(): ?string
+    {
+        if ($this->extrait != null){
+            $string = stream_get_contents($this->extrait);
+            return (base64_encode($string));
+        }
+        return "Extrait indisponible";
+    }
 
 }

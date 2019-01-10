@@ -12,8 +12,11 @@
             {% for album in albums%}
 
             <td style="text-align: center">
-                <img src="data:image/png;base64,{{ album.getBase64Pochette}}" height="200" width="250" alt=''>
+                <div>{{ album.titreAlbum }}</div>
 
+                <div><a href="{{ path('album_show', {'codeAlbum': album.codeAlbum}) }}">
+                        <img src="data:image/png;base64,{{ album.getBase64Pochette}}" height="200" width="250" alt=''>
+                    </a></div>
             </td>
 
             {% set cpt = cpt+1%}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Album{% endblock %}
+
+{% block body %}
+    <br>
+    <h1> {{ album.titreAlbum }} </h1>
+
+    <img src="data:image/png;base64,{{ album.base64Pochette }}" alt=''>
+
+    <br>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Editeur</th>
+        <td> {{ editeur.nomEditeur }}</td>
+        </tr>
+        <tr>
+            <th>Genre</th>
+            <td>{{ genre.libelleAbrege}}</td>
+        </tr>
+        <tr>
+            <th>Année de sortie</th>
+            <td>{{ album.anneeAlbum }}</td>
+        </tr>
+        </tbody>
+        {% for enregistrement in enregistrements %}
+            <tr>
+                <th>Titre</th>
+                <td>{{ enregistrement.titre }}</td>
+                <th>Prix</th>
+                <td>{{ enregistrement.prix }} €</td>
+                <th>Extrait</th>
+                <td><audio
+                            controls
+                            src="data:audio/mp3;base64,{{ enregistrement.base64Extrait }}" >
+                        Votre navigateur ne supporte pas l'élément
+                        <code>audio</code>.
+                    </audio>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('albums_index') }}">Retour</a>
+
+{% endblock %}

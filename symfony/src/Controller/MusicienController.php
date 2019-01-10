@@ -32,12 +32,8 @@ class MusicienController extends AbstractController
      */
     public function show(Musicien $musicien): Response
     {
-
-        $listeOeuvre = $this->getDoctrine()
-            ->getRepository(Composer::class)
-            ->findBy(array('codeMusicien'=>$musicien),null,25);
         return $this->render('musicien/show.html.twig', 
-                            ['musicien' => $musicien,'oeuvres' => $listeOeuvre]);
+                            ['musicien' => $musicien,'oeuvres' => $musicien->getOeuvres()]);
     }
 
 

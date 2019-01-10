@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,9 +85,24 @@ class Musicien
      */
     private $codeInstrument;
 
+    /**
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="Oeuvre")
+     * @ORM\JoinTable(name="Composer",
+     *      joinColumns={@ORM\JoinColumn(name="Code_Musicien", referencedColumnName="Code_Musicien")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="Code_Oeuvre", referencedColumnName="Code_Oeuvre")}
+     *      )
+     */
+    private $oeuvres;
+
     public function getCodeMusicien(): ?int
     {
         return $this->codeMusicien;
+    }
+
+    public function getOeuvres()
+    {
+        return $this->oeuvres;
     }
 
     public function getNomMusicien(): ?string
@@ -193,6 +207,6 @@ class Musicien
             $string = stream_get_contents($this->photo);
             return (base64_encode($string));
         }
-       return "pas de photo";
+       return "Photo indisponible";
     }
 }

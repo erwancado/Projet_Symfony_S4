@@ -12,36 +12,32 @@
 
     <table class="table">
         <tbody>
-        <tr>
-                <th>ListeOeuvre</th>
-                <tbody>
-                    {% for composer in oeuvres %}
-                    <tr>
-                        <td>{{ composer.codeOeuvre.titreOeuvre }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </tr>
             <tr>
-                <th>CodeMusicien</th>
-                <td>{{ musicien.codeMusicien }}</td>
-            </tr>
-            <tr>
-                <th>NomMusicien</th>
+                <th>Nom</th>
                 <td>{{ musicien.nomMusicien }}</td>
             </tr>
             <tr>
-                <th>PrenomMusicien</th>
+                <th>Prénom</th>
                 <td>{{ musicien.prenomMusicien }}</td>
             </tr>
             <tr>
-                <th>AnneeNaissance</th>
+                <th>Date de naissance</th>
                 <td>{{ musicien.anneeNaissance }}</td>
             </tr>
             <tr>
-                <th>AnneeMort</th>
+                <th>Date de mort</th>
                 <td>{{ musicien.anneeMort }}</td>
             </tr>
+            <tr>
+                <th>Liste de ses oeuvres</th>
+        <tbody>
+        {% for oeuvre in oeuvres %}
+            <tr>
+                <td>{{ oeuvre.titreOeuvre }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </tr>
         </tbody>
     </table>
 
