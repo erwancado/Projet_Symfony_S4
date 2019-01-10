@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Controller extends AbstractController
 {
     /**
-     * @Route("/default", name="")
+     * @Route("/default", name="default")
      */
     public function index()
     {
@@ -17,12 +17,4 @@ class Controller extends AbstractController
         ]);
     }
 
-      /**
-     * @Route("/default/{nom}", name="name_default")
-     */
-    public function hello($nom){
-        return $this->render('/name.html.twig', array(
-            'nom' => $nom
-        )); 
-    }
 }

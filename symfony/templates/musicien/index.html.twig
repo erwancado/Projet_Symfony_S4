@@ -28,7 +28,6 @@
                 <td>{{ musicien.photo }}</td>
                 <td>
                     <a href="{{ path('musicien_show', {'codeMusicien': musicien.codeMusicien}) }}">show</a>
-                    <a href="{{ path('musicien_edit', {'codeMusicien': musicien.codeMusicien}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +38,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('musicien_new') }}">Create new</a>
 {% endblock %}

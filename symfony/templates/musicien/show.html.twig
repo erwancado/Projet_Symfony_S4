@@ -11,7 +11,13 @@
         <tbody>
         <tr>
                 <th>ListeOeuvre</th>
-                <td>{{ Composer.codeOeuvre }}</td>
+                <tbody>
+                    {% for composer in oeuvres %}
+                    <tr>
+                        <td>{{ composer.codeOeuvre.titreOeuvre }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </tr>
             <tr>
                 <th>CodeMusicien</th>
@@ -42,7 +48,4 @@
 
     <a href="{{ path('musicien_index') }}">back to list</a>
 
-    <a href="{{ path('musicien_edit', {'codeMusicien': musicien.codeMusicien}) }}">edit</a>
-
-    {{ include('musicien/_delete_form.html.twig') }}
 {% endblock %}
