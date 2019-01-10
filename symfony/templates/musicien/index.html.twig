@@ -13,11 +13,15 @@
         {% for musicien in musiciens %}
 
             <td style="text-align: center">
+
+            <div>{{ musicien.nomMusicien }}</div>
+
              <img src="data:image/png;base64,{{ musicien.base64Photo }}" height="200" width="250" alt=''>
                 <br>
                 <div>
                 <a href="{{ path('musicien_show', {'codeMusicien': musicien.codeMusicien}) }}">Detail</a>
                 </div>
+
             </td>
 
         {% set cpt = cpt+1%}

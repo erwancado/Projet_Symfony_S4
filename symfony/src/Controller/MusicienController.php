@@ -22,7 +22,7 @@ class MusicienController extends AbstractController
     {
         $musiciens = $this->getDoctrine()
             ->getRepository(Musicien::class)
-            ->findBy([],null,50);
+            ->findAll();
 
         return $this->render('musicien/index.html.twig', ['musiciens' => $musiciens]);
     }

@@ -189,7 +189,10 @@ class Musicien
 
     public function getBase64Photo(): ?string 
     {
-        $string = stream_get_contents($this->photo);
-        return (base64_encode($string));
+        if ($this->photo != null){
+            $string = stream_get_contents($this->photo);
+            return (base64_encode($string));
+        }
+       return "pas de photo";
     }
 }

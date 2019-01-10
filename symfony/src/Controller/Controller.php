@@ -17,4 +17,14 @@ class Controller extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/about", name="about")
+     */
+    public function index_about()
+    {
+        return $this->render('/about.html.twig', [
+            'controller_name' => 'Controller',
+        ]);
+    }
 }
