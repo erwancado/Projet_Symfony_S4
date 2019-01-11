@@ -4,7 +4,7 @@
 
 {% block body %}
     <br>
-    <h1>Compositeurs</h1>
+    <h1 style="text-align: center">Compositeurs</h1>
 
     <table class="table">
         {% set cpt = 0 %}
@@ -41,4 +41,5 @@
         </tbody>
     </table>
 
+    <a href="{{ path('musicien_index') }}">Revenir à la liste</a>
 {% endblock %}

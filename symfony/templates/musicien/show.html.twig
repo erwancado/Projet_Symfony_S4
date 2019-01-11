@@ -2,34 +2,49 @@
 
 {% block title %}Musicien{% endblock %}
 
+{% block search %}
+    {% if formulaire is defined %}
+        <div>
+            {{ form_start(formulaire, { 'attr': {'class': 'navbar-form navbar-left'} }) }}
+            <div class="form-group">
+                {{ form_widget(formulaire.search, { 'attr': {'class': 'form-control'} }) }}
+                {{ form_widget(formulaire.send, { 'attr': {'class': 'btn btn-default'} }) }}
+            </div>
+            {{ form_rest(formulaire) }}
+            {{ form_end(formulaire) }}
+        </div>
+    {% endif %}
+
+{% endblock search %}
+
 {% block body %}
     <br>
     <h1> {{ musicien.nomMusicien }} </h1>
-    
+
     <img src="data:image/png;base64,{{ musicien.base64Photo }}" alt=''>
 
     <br>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Nom</th>
-                <td>{{ musicien.nomMusicien }}</td>
-            </tr>
-            <tr>
-                <th>Prénom</th>
-                <td>{{ musicien.prenomMusicien }}</td>
-            </tr>
-            <tr>
-                <th>Date de naissance</th>
-                <td>{{ musicien.anneeNaissance }}</td>
-            </tr>
-            <tr>
-                <th>Date de mort</th>
-                <td>{{ musicien.anneeMort }}</td>
-            </tr>
-            <tr>
-                <th>Liste de ses oeuvres</th>
+        <tr>
+            <th>Nom</th>
+            <td>{{ musicien.nomMusicien }}</td>
+        </tr>
+        <tr>
+            <th>Prénom</th>
+            <td>{{ musicien.prenomMusicien }}</td>
+        </tr>
+        <tr>
+            <th>Date de naissance</th>
+            <td>{{ musicien.anneeNaissance }}</td>
+        </tr>
+        <tr>
+            <th>Date de mort</th>
+            <td>{{ musicien.anneeMort }}</td>
+        </tr>
+        <tr>
+            <th>Liste de ses oeuvres</th>
         <tbody>
         {% for oeuvre in oeuvres %}
             <tr>
@@ -41,6 +56,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('musicien_index') }}">back to list</a>
+    <a href="{{ path('musicien_index') }}">Revenir à la liste</a>
 
 {% endblock %}
