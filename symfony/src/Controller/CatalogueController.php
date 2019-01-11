@@ -40,7 +40,7 @@ class CatalogueController extends AbstractController
             $search = $request->get('form')['search'];
             $albums = $this->getDoctrine()
                 ->getRepository(Album::class)
-                ->findBy(array('titreAlbum' => $search));
+                ->findAlbumsResearch($search);
 
         } else {
             $albums = $this->getDoctrine()

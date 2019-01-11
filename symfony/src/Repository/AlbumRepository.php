@@ -39,4 +39,15 @@ class AlbumRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findAlbumsResearch(string $albumName)
+    {
+        $em = $this->getEntityManager();
+        $rsm = new ResultSetMappingBuilder($em);
+        $rsm->addRootEntityFromClassMetadata(Album::class, 'Album');
+        $sql = "SELECT DISTINCT Album.* FROM Album
+        WHERE Album.Titre_Album LIKE'%" .$albumName. "%'";
+        $query = $em->createNativeQuery($sql, $rsm);
+        return $query->getResult();
+    }
+
 }
