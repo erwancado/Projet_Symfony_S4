@@ -28,5 +28,14 @@ class Controller extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/panier", name="panier")
+     */
+    public function index_panier()
+    {
+        return $this->render('/panier.html.twig', [
+            'controller_name' => 'Controller',
+        ]);
+    }
 
 }
