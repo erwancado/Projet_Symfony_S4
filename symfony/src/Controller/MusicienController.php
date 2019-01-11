@@ -37,7 +37,7 @@ class MusicienController extends AbstractController
             $search = $request->get('form')['search'];
             $musiciens = $this->getDoctrine()
                 ->getRepository(Musicien::class)
-                ->findBy(array('nomMusicien' => $search));
+                ->findMusicienResearch($search);
 
         } else {
             $musiciens = $this->getDoctrine()
