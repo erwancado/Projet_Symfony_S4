@@ -44,13 +44,24 @@
             <td>{{ musicien.anneeMort }}</td>
         </tr>
         <tr>
-            <th>Liste de ses oeuvres</th>
+            <th>Liste de ses oeuvres et albums</th>
         <tbody>
+        <tr>
+            <td>
         {% for oeuvre in oeuvres %}
-            <tr>
-                <td>{{ oeuvre.titreOeuvre }}</td>
-            </tr>
+
+            {{ oeuvre.titreOeuvre }}
+
         {% endfor %}
+            </td>
+            <td>
+                {% for album in albums %}
+                <a href="{{ path('album_show', {'codeAlbum': album.codeAlbum}) }}">
+                    <img src="data:image/png;base64,{{ album.getBase64Pochette}}" height="200" width="250" alt=''>
+                </a>
+                {% endfor %}
+            </td>
+        </tr>
         </tbody>
         </tr>
         </tbody>
