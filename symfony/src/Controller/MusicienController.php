@@ -36,7 +36,7 @@ class MusicienController extends AbstractController
             $search = $request->get('form')['search'];
             $musiciens = $this->getDoctrine()
                 ->getRepository(Musicien::class)
-                ->findBy(array('nomMusicien' => $search));
+                ->findMusicienResearch($search);
 
         } else {
             $musiciens = $this->getDoctrine()
@@ -55,10 +55,14 @@ class MusicienController extends AbstractController
      */
     public function show( Musicien $musicien): Response
     {
+        $albums = $this->getDoctrine()
+            ->getRepository(Musicien::class)
+            ->findAlbumsByMusicien($musicien);
 
         return $this->render('musicien/show.html.twig',
             ['musicien' => $musicien,
-                'oeuvres' => $musicien->getOeuvres()
+                'oeuvres' => $musicien->getOeuvres(),
+                'albums' => $albums
             ]);
     }
 

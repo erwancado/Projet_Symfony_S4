@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Musicien
  *
  * @ORM\Table(name="Musicien", indexes={@ORM\Index(name="IDX_AC6BE67520B77BF2", columns={"Code_Pays"}), @ORM\Index(name="IDX_AC6BE675E1990660", columns={"Code_Genre"}), @ORM\Index(name="IDX_AC6BE675D389A975", columns={"Code_Instrument"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\MusicienRepository")
  */
 class Musicien
 {
