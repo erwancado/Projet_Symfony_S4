@@ -2,21 +2,6 @@
 
 {% block title %}Musicien{% endblock %}
 
-{% block search %}
-    {% if formulaire is defined %}
-        <div>
-            {{ form_start(formulaire, { 'attr': {'class': 'navbar-form navbar-left'} }) }}
-            <div class="form-group">
-                {{ form_widget(formulaire.search, { 'attr': {'class': 'form-control'} }) }}
-                {{ form_widget(formulaire.send, { 'attr': {'class': 'btn btn-default'} }) }}
-            </div>
-            {{ form_rest(formulaire) }}
-            {{ form_end(formulaire) }}
-        </div>
-    {% endif %}
-
-{% endblock search %}
-
 {% block body %}
     <br>
     <h1> {{ musicien.nomMusicien }} </h1>

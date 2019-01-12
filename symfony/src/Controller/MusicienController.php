@@ -26,14 +26,13 @@ class MusicienController extends AbstractController
     {
         $search = NULL;
         $formulaire = $this->createFormBuilder()
-            ->add('search', SearchType::class, array('constraints' => new Length(array('min' => 3)), 'attr' => array('placeholder' => 'Rechercher un produit')))
+            ->add('search', SearchType::class, array('constraints' => new Length(array('min' => 3)), 'attr' => array('placeholder' => 'Rechercher un musicien   ')))
             ->add('send', SubmitType::class, array('label' => 'Rechercher'))
             ->getForm();
 
         $formulaire->handleRequest($request);
 
-        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
-            dump($request->get('form') ['search']);
+        if ($formulaire->isSubmitted() && !$formulaire->isValid()) {
             $search = $request->get('form')['search'];
             $musiciens = $this->getDoctrine()
                 ->getRepository(Musicien::class)
