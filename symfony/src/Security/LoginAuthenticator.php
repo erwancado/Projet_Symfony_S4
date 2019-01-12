@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Abonne;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -64,11 +65,11 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['login' => $credentials['login']]);
+        $user = $this->entityManager->getRepository(Abonne::class)->findOneBy(['login' => $credentials['login']]);
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Login could not be found.');
+            throw new CustomUserMessageAuthenticationException('Login/Mot des passe incorrect!');
         }
 
         return $user;
@@ -85,8 +86,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->router->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        throw new \Exception($this->router->generate('default'));
     }
 
     protected function getLoginUrl()

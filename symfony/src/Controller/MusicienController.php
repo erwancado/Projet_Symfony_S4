@@ -32,7 +32,7 @@ class MusicienController extends AbstractController
 
         $formulaire->handleRequest($request);
 
-        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+        if ($formulaire->isSubmitted() && !$formulaire->isValid()) {
             $search = $request->get('form')['search'];
             $musiciens = $this->getDoctrine()
                 ->getRepository(Musicien::class)
