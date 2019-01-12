@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Length;
 
+
 class PanierController extends AbstractController
 {
     /**
@@ -22,6 +23,9 @@ class PanierController extends AbstractController
      */
     public function index()
     {
+        if(!(isset($_SESSION['login']) && isset($_SESSION['password']))){
+           return $this->render('security/login.html.twig');
+        }
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
             ->findOneBy(['codeAbonne'=>'15480']);
