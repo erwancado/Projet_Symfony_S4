@@ -27,42 +27,81 @@ class PanierController extends AbstractController
             ->findOneBy(['codeAbonne'=>'15480']);
         $enregistrements = $this->getDoctrine()
             ->getRepository(Achat::class)
-            ->findAchatsByAbonne($abonne);
+            ->findPanierByAbonne($abonne);
+        $prixTotal = 0;
+        foreach ($enregistrements as $e)
+            $prixTotal+=$e->getPrix();
         return $this->render('/panier/index.html.twig', [
-            'enregistrements' => $enregistrements,
+            'enregistrements' => $enregistrements,'prixTotal'=>$prixTotal,
+            'historique'=>'false'
+        ]);
+    }
+
+    /**
+     * @Route("/historique", name="historique_achats", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function historique()
+    {
+        $abonne = $this->getDoctrine()
+            ->getRepository(Abonne::class)
+            ->findOneBy(['codeAbonne'=>'15480']);
+        $enregistrements = $this->getDoctrine()
+            ->getRepository(Achat::class)
+            ->findAchatsByAbonne($abonne);
+        $prixTotal = 0;
+        foreach ($enregistrements as $e)
+            $prixTotal+=$e->getPrix();
+        return $this->render('/panier/index.html.twig', [
+            'enregistrements' => $enregistrements,'prixTotal'=>$prixTotal,
+            'historique'=>'true'
         ]);
     }
 
     /**
      * @Route("/panier", name="ajout-panier-album", methods={"GET"})
-     * @param Abonne $code_abonne
      * @param Album $album
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function ajout_panier_album(Abonne $code_abonne,Album $album)
+    public function ajout_panier_album(Album $album)
     {
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
-            ->find($code_abonne);
+            ->findOneBy(['codeAbonne'=>'15480']);
+        $enregistrements = $this->getDoctrine()
+            ->getRepository(Album::class)
+            ->findEnregistrements($album);
+        foreach ($enregistrements as $e){
+            $this->getDoctrine()
+                ->getRepository(Achat::class)
+                ->addEnregistrement($abonne,$e);
+        }
         return $this->render('/index.html.twig', [
-            'controller_name' => 'Controller',
+            'enregistrements' => $enregistrements,
         ]);
     }
 
     /**
      * @Route("/panier", name="ajout-panier-enregistrement", methods={"GET"})
-     * @param Abonne $code_abonne
      * @param Enregistrement $enregistrement
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function ajout_panier_enregistrement(Abonne $code_abonne,Enregistrement $enregistrement)
+    public function ajout_panier_enregistrement(Enregistrement $enregistrement)
     {
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
-            ->find($code_abonne);
-        $this->getDoctrine()
-            ->getRepository(Achat::class)
-            ->addEnregistrement($abonne,$enregistrement);
+            ->findOneBy(['codeAbonne'=>'15558']);
+
+
+        $em=$this->getDoctrine()->getManager();
+        $achat = new Achat();
+        $achat->setAchatConfirme(false);
+        $achat->setCodeAbonne($abonne);
+        $achat->setCodeEnregistrement($enregistrement);
+        $em->persist($achat);
+        $em->flush();
+
+
         $enregistrements = $this->getDoctrine()
             ->getRepository(Achat::class)
             ->findAchatsByAbonne($abonne);
