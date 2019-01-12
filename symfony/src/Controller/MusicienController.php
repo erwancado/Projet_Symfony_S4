@@ -51,7 +51,6 @@ class MusicienController extends AbstractController
 
     /**
      * @Route("/{codeMusicien}", name="musicien_show", methods={"GET"})
-     * @param Request $request
      * @param Musicien $musicien
      * @return Response
      */

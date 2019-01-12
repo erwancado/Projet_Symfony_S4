@@ -27,7 +27,7 @@
         <tr>
             <th>Shopper</th>
             <td>
-                <a href="{{ path('panier') }}"><img src="https://img.icons8.com/windows/50/000000/add-shopping-cart.png"></a>
+                <a href="{{ path('ajout-panier-album',{'code_abonne':15480},{'album':album}) }}"><img src="https://img.icons8.com/windows/50/000000/add-shopping-cart.png"></a>
                 <a href="http://www.amazon.com/dp/{{ album.asin }}"><img height="32" width="32" src="https://pngimg.com/uploads/amazon/amazon_PNG27.png"></a>
             </td>
         </tr>
@@ -38,6 +38,7 @@
                 <td>{{ enregistrement.titre }}</td>
                 <th>Prix</th>
                 <td>{{ enregistrement.prix }} €</td>
+                <td><a href="{{ path('ajout-panier-enregistrement',{'code_abonne':15480},{'enregistrement':enregistrement}) }}"><img src="https://img.icons8.com/windows/50/000000/add-shopping-cart.png"></a></td>
                 <th>Extrait</th>
                 <td><audio
                             controls

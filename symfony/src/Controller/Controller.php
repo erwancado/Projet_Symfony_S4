@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonne;
+use App\Entity\Achat;
+use App\Entity\Album;
+use App\Entity\Enregistrement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,14 +32,5 @@ class Controller extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/panier", name="panier")
-     */
-    public function index_panier()
-    {
-        return $this->render('/panier.html.twig', [
-            'controller_name' => 'Controller',
-        ]);
-    }
 
 }

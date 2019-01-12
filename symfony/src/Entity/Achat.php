@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Achat
  *
  * @ORM\Table(name="Achat", indexes={@ORM\Index(name="IDX_E768AB52A1866919", columns={"Code_Enregistrement"}), @ORM\Index(name="IDX_E768AB52888459B3", columns={"Code_Abonne"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
  */
 class Achat
 {
