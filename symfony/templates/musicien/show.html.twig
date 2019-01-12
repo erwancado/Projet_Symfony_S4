@@ -2,9 +2,9 @@
 
 {% block title %}Musicien{% endblock %}
 
-{% block search %}
+<{% block search %}
     {% if formulaire is defined %}
-        <div>
+       <!-- <div>
             {{ form_start(formulaire, { 'attr': {'class': 'navbar-form navbar-left'} }) }}
             <div class="form-group">
                 {{ form_widget(formulaire.search, { 'attr': {'class': 'form-control'} }) }}
@@ -12,7 +12,7 @@
             </div>
             {{ form_rest(formulaire) }}
             {{ form_end(formulaire) }}
-        </div>
+        </div>-->
     {% endif %}
 
 {% endblock search %}
