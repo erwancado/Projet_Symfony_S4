@@ -23,8 +23,8 @@ class PanierController extends AbstractController
      */
     public function index()
     {
-        if(!(isset($_SESSION['login']) && isset($_SESSION['password']))){
-           return $this->render('security/login.html.twig');
+        if(!$this->getUser()){
+           return $this->redirect('/login');
         }
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
@@ -48,7 +48,7 @@ class PanierController extends AbstractController
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
             ->find($code_abonne);
-        return $this->render('/index.html.twig', [
+        return $this->render('panier/index.html.twig', [
             'controller_name' => 'Controller',
         ]);
     }

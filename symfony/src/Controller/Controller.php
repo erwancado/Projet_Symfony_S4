@@ -18,7 +18,6 @@ class Controller extends AbstractController
      */
     public function index()
     {
-        var_dump($_SESSION['login']);
         return $this->render('/index.html.twig', [
             'controller_name' => 'Controller',
         ]);
@@ -35,13 +34,9 @@ class Controller extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/", name="deco")
-     */
-    public function deconnexion()
+    public function nameUser()
     {
-        session_unset();
-        session_destroy();
+        return $this->getUser();
     }
 
 

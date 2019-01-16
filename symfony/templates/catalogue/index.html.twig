@@ -5,6 +5,24 @@
 {% block body %}
     <h1 style="text-align: center">Oeuvres disponibles</h1>
 
+    {% block search %}
+        {% if formulaire is defined %}
+            <div>
+                {{ form_start(formulaire, { 'attr': {'class': 'navbar-form navbar-left'} }) }}
+                <div>
+                    <div>
+                        {{ form_widget(formulaire.search, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div>
+                        {{ form_widget(formulaire.send, { 'attr': {'class': 'btn btn-default'} } ) }}
+                    </div>
+                </div>
+                {{ form_rest(formulaire) }}
+                {{ form_end(formulaire) }}
+            </div>
+        {% endif %}
+    {% endblock search %}
+
     <table class="table">
         {% set cpt = 0 %}
         <tbody>
