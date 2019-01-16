@@ -22,9 +22,12 @@ class PanierController extends AbstractController
      */
     public function index()
     {
+        if(!$this->getUser()){
+            return $this->redirect('/login');
+        }
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
-            ->findOneBy(['codeAbonne'=>'15480']);
+            ->findOneBy(['login'=>$this->getUser()]);
         $enregistrements = $this->getDoctrine()
             ->getRepository(Achat::class)
             ->findPanierByAbonne($abonne);
@@ -43,6 +46,9 @@ class PanierController extends AbstractController
      */
     public function historique()
     {
+        if(!$this->getUser()){
+            return $this->redirect('/login');
+        }
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
             ->findOneBy(['codeAbonne'=>'15480']);
@@ -65,9 +71,12 @@ class PanierController extends AbstractController
      */
     public function ajout_panier_album(Album $album)
     {
+        if(!$this->getUser()){
+            return $this->redirect('/login');
+        }
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
-            ->findOneBy(['codeAbonne'=>'15480']);
+            ->findOneBy(['login'=>$this->getUser()]);
         $enregistrements = $this->getDoctrine()
             ->getRepository(Album::class)
             ->findEnregistrements($album);
@@ -90,7 +99,7 @@ class PanierController extends AbstractController
     {
         $abonne = $this->getDoctrine()
             ->getRepository(Abonne::class)
-            ->findOneBy(['codeAbonne'=>'15558']);
+            ->findOneBy(['login'=>$this->getUser()]);
 
 
         $em=$this->getDoctrine()->getManager();
