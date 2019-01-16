@@ -3,24 +3,36 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-    <br>
-    <<h1 style="text-align: center">Panier</h1>
-    <table>
+    <table style="alignment: center">
+        <caption style="background-color: #3f87a6;color: #fff;text-align: center;">Total : {{ prixTotal }} €</caption>
+        <thead style="background-color: #3f87a6;color: #fff;text-align: center;">
+        <tr>
+            <th>Titre</th>
+            <th scope="col">Prix</th>
+            <th>Extrait</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for enregistrement in enregistrements %}
-            <tr>
-                <th>Titre</th>
-                <td>{{ enregistrement.titre }}</td>
-                <th>Prix</th>
-                <td>{{ enregistrement.prix }} €</td>
-                <th>Extrait</th>
-                <td><audio
-                            controls
-                            src="data:audio/mp3;base64,{{ enregistrement.base64Extrait }}" >
-                        Votre navigateur ne supporte pas l'élément
-                        <code>audio</code>.
-                    </audio>
-                </td>
-            </tr>
+        <tr>
+            <th scope="row">{{ enregistrement.titre }}</th>
+            <td style="padding: 20px;">{{ enregistrement.prix }} €</td>
+
+            <td><audio
+                        controls
+                        src="data:audio/mp3;base64,{{ enregistrement.base64Extrait }}" >
+                    Votre navigateur ne supporte pas l'élément
+                    <code>audio</code>.
+                </audio>
+            </td>
+        </tr>
         {% endfor %}
+        </tbody>
+
     </table>
+    {% if historique == 'false'%}
+    <a href="{{ path('historique_achats') }}"> Voir mon historique d'achats</a>
+    {% else %}
+    <a href="{{ path('index_panier') }}"> Retour au panier</a>
+    {% endif %}
 {% endblock %}

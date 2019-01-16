@@ -29,8 +29,22 @@ class PanierRepository extends EntityRepository
         $em = $this->getEntityManager();
         $rsm = new ResultSetMappingBuilder($em);
         $rsm->addRootEntityFromClassMetadata(Achat::class, 'Achat');
-        $sql = "INSERT INTO Achat.Code_Morceau,Achat.Code_Abonne,Achat.Achat_Confirme
-        VALUES (".$enregistrement->getCodeMorceau().",".$abonne->getCodeAbonne().",false";
+        $sql = "INSERT INTO Achat(Code_Enregistrement,Code_Abonne,Achat_Confirme)
+        VALUES (".$enregistrement->getCodeMorceau().",".$abonne->getCodeAbonne().",0)";
+        $query = $em->createNativeQuery($sql, $rsm);
+        $query->execute();
+        $em->commit();
+    }
+
+    public function findPanierByAbonne(Abonne $abonne)
+    {
+        $em = $this->getEntityManager();
+        $rsm = new ResultSetMappingBuilder($em);
+        $rsm->addRootEntityFromClassMetadata(Enregistrement::class, 'Enregistrement');
+        $sql = "SELECT Enregistrement.* FROM Abonne 
+        INNER JOIN Achat ON Abonne.Code_Abonne = Achat.Code_Abonne
+        INNER JOIN Enregistrement ON Achat.Code_Enregistrement = Enregistrement.Code_Morceau
+        WHERE Achat.Achat_Confirme=0";
         $query = $em->createNativeQuery($sql, $rsm);
         return $query->getResult();
     }
@@ -42,7 +56,8 @@ class PanierRepository extends EntityRepository
         $rsm->addRootEntityFromClassMetadata(Enregistrement::class, 'Enregistrement');
         $sql = "SELECT Enregistrement.* FROM Abonne 
         INNER JOIN Achat ON Abonne.Code_Abonne = Achat.Code_Abonne
-        INNER JOIN Enregistrement ON Achat.Code_Enregistrement = Enregistrement.Code_Morceau";
+        INNER JOIN Enregistrement ON Achat.Code_Enregistrement = Enregistrement.Code_Morceau
+        WHERE Achat.Achat_Confirme=1";
         $query = $em->createNativeQuery($sql, $rsm);
         return $query->getResult();
     }
