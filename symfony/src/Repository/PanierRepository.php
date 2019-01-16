@@ -44,7 +44,7 @@ class PanierRepository extends EntityRepository
         $sql = "SELECT Enregistrement.* FROM Abonne 
         INNER JOIN Achat ON Abonne.Code_Abonne = Achat.Code_Abonne
         INNER JOIN Enregistrement ON Achat.Code_Enregistrement = Enregistrement.Code_Morceau
-        WHERE Achat.Achat_Confirme=0";
+        WHERE Achat.Achat_Confirme=0 AND Abonne.Code_Abonne=".$abonne->getCodeAbonne();
         $query = $em->createNativeQuery($sql, $rsm);
         return $query->getResult();
     }
@@ -57,7 +57,7 @@ class PanierRepository extends EntityRepository
         $sql = "SELECT Enregistrement.* FROM Abonne 
         INNER JOIN Achat ON Abonne.Code_Abonne = Achat.Code_Abonne
         INNER JOIN Enregistrement ON Achat.Code_Enregistrement = Enregistrement.Code_Morceau
-        WHERE Achat.Achat_Confirme=1";
+        WHERE Achat.Achat_Confirme=1 AND Abonne.Code_Abonne=".$abonne->getCodeAbonne();
         $query = $em->createNativeQuery($sql, $rsm);
         return $query->getResult();
     }

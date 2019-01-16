@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Abonne;
 use App\Entity\Achat;
 use App\Entity\Album;
+use App\Entity\Enregistrement as EnregistrementAlias;
 use App\Entity\Enregistrement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +26,7 @@ class PanierController extends AbstractController
         if(!$this->getUser()){
             return $this->redirect('/login');
         }
-        $abonne = $this->getDoctrine()
-            ->getRepository(Abonne::class)
-            ->findOneBy(['login'=>$this->getUser()]);
+        $abonne = $this->getUser();
         $enregistrements = $this->getDoctrine()
             ->getRepository(Achat::class)
             ->findPanierByAbonne($abonne);
@@ -49,9 +48,7 @@ class PanierController extends AbstractController
         if(!$this->getUser()){
             return $this->redirect('/login');
         }
-        $abonne = $this->getDoctrine()
-            ->getRepository(Abonne::class)
-            ->findOneBy(['codeAbonne'=>'15480']);
+        $abonne = $abonne = $this->getUser();
         $enregistrements = $this->getDoctrine()
             ->getRepository(Achat::class)
             ->findAchatsByAbonne($abonne);
@@ -65,43 +62,45 @@ class PanierController extends AbstractController
     }
 
     /**
-     * @Route("/panier", name="ajout-panier-album", methods={"GET"})
-     * @param Album $album
+     * @Route("/panier/ajout_panier_album/{codeAlbum}", name="ajout-panier-album", methods={"GET"})
+     * @param int $codeAlbum
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function ajout_panier_album(Album $album)
+    public function ajout_panier_album(int $codeAlbum)
     {
         if(!$this->getUser()){
             return $this->redirect('/login');
         }
-        $abonne = $this->getDoctrine()
-            ->getRepository(Abonne::class)
-            ->findOneBy(['login'=>$this->getUser()]);
+        $album=$this->getDoctrine()
+            ->getRepository(Album::class)
+            ->find($codeAlbum);
+        $abonne = $this->getUser();
         $enregistrements = $this->getDoctrine()
             ->getRepository(Album::class)
             ->findEnregistrements($album);
         foreach ($enregistrements as $e){
-            $this->getDoctrine()
-                ->getRepository(Achat::class)
-                ->addEnregistrement($abonne,$e);
+            $em=$this->getDoctrine()->getManager();
+            $achat = new Achat();
+            $achat->setAchatConfirme(false);
+            $achat->setCodeAbonne($abonne);
+            $achat->setCodeEnregistrement($e);
+            $em->persist($achat);
+            $em->flush();
         }
-        return $this->render('/index.html.twig', [
-            'enregistrements' => $enregistrements,
-        ]);
+        return $this->redirect('/panier');
     }
 
     /**
-     * @Route("/panier", name="ajout-panier-enregistrement", methods={"GET"})
-     * @param Enregistrement $enregistrement
+     * @Route("/panier/ajout_panier_enregistrement/{codeEnregistrement}", name="ajout-panier-enregistrement", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function ajout_panier_enregistrement(Enregistrement $enregistrement)
+    public function ajout_panier_enregistrement(int $codeEnregistrement)
     {
-        $abonne = $this->getDoctrine()
-            ->getRepository(Abonne::class)
-            ->findOneBy(['login'=>$this->getUser()]);
+        $abonne = $this->getUser();
 
-
+        $enregistrement=$this->getDoctrine()
+            ->getRepository(Enregistrement::class)
+            ->find($codeEnregistrement);
         $em=$this->getDoctrine()->getManager();
         $achat = new Achat();
         $achat->setAchatConfirme(false);
@@ -111,11 +110,6 @@ class PanierController extends AbstractController
         $em->flush();
 
 
-        $enregistrements = $this->getDoctrine()
-            ->getRepository(Achat::class)
-            ->findAchatsByAbonne($abonne);
-        return $this->render('/index.html.twig', [
-            'enregistrements' => $enregistrements,
-        ]);
+        return $this->redirect('/panier');
     }
 }
