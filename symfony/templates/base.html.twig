@@ -7,55 +7,40 @@
         <link rel="stylesheet" href="{% block stylesheets %}{{ asset('css/bootstrap.min.css') }}{% endblock %}">
     </head>
     <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="{{ path('default') }}">Accueil</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('musicien_index') }}">Musiciens<span
-                                class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('albums_index') }}">Catalogue</a>
-                </li>
+            <ul class="navbar-nav">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('about') }}">A propos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('index_panier') }}">Panier</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('abonne_new') }}">Inscription</a>
-                </li>
+                <li class="nav-item navbar-nav ml-auto"><a class="nav-link" href="{{ path('musicien_index') }}">Musiciens</a></li>
+
+                <li class="nav-item navbar-nav ml-auto"><a class="nav-link" href="{{ path('albums_index') }}">Catalogue</a></li>
+
+                <li class="nav-item navbar-nav ml-auto"><a class="nav-link" href="{{ path('about') }}">A propos</a></li>
+
+
             </ul>
-            {% block search %}
-                {% if formulaire is defined %}
-                    <div class="collapse navbar-collapse navbar-right">
-                        {{ form_start(formulaire, { 'attr': {'class': 'navbar-form navbar-left'} }) }}
-                        <div class="navbar-nav">
-                            <div class="nav-item">
-                                {{ form_widget(formulaire.search, { 'attr': {'class': 'form-control'} }) }}
-                            </div>
-                            <div class="nav-item">
-                            {{ form_widget(formulaire.send, { 'attr': {'class': 'btn btn-default'} } ) }}
-                            </div>
-                        </div>
-                        {{ form_rest(formulaire) }}
-                        {{ form_end(formulaire) }}
-                    </div>
-                {% endif %}
-            {% endblock search %}
         </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item navbar-nav mr-auto"><a class="nav-link" href="{{ path('index_panier') }}">Panier</a></li>
+
+            {% if not app.user is not null  %}
+            <li class="nav-item nav navbar-nav mr-auto"><a class="nav-link" href="{{ path('app_login') }}"> Connexion </a></li>
+                <li class="nav-item nav navbar-nav mr-auto"><a class="nav-link" href="{{ path('abonne_new') }}"> Inscription </a></li>
+            {% endif %}
+            {% if  app.user is not null  %}
+                <li class="nav-item nav navbar-nav mr-auto"> <a class="nav-link">{{ app.user.login }}</a></li>
+                <li class="nav-item nav navbar-nav mr-auto"> <a class="nav-link" href="{{ path('app_logout') }}"> Deconnexion </a></li>
+            {% endif %}
+        </ul>
     </nav>
+
+
     {% block body %}{% endblock %}
     {% block javascripts %}{% endblock %}
     </body>

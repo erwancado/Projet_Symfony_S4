@@ -9,6 +9,8 @@ use App\Entity\Enregistrement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 class Controller extends AbstractController
 {
     /**
@@ -30,6 +32,11 @@ class Controller extends AbstractController
         return $this->render('/about.html.twig', [
             'controller_name' => 'Controller',
         ]);
+    }
+
+    public function nameUser()
+    {
+        return $this->getUser();
     }
 
 

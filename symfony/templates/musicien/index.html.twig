@@ -6,6 +6,24 @@
     <br>
     <h1 style="text-align: center">Compositeurs</h1>
 
+    {% block search %}
+        {% if formulaire is defined %}
+            <div>
+                {{ form_start(formulaire, { 'attr': {'class': 'navbar-form navbar-right'} }) }}
+                <div >
+                    <div >
+                        {{ form_widget(formulaire.search, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div >
+                        {{ form_widget(formulaire.send, { 'attr': {'class': 'btn btn-default'} } ) }}
+                    </div>
+                </div>
+                {{ form_rest(formulaire) }}
+                {{ form_end(formulaire) }}
+            </div>
+        {% endif %}
+    {% endblock search %}
+
     <table class="table">
         {% set cpt = 0 %}
         <tbody>
@@ -14,7 +32,7 @@
 
             <td style="text-align: center">
 
-            <div>{{ musicien.nomMusicien }}</div>
+            <div>{{ musicien.prenomMusicien }} {{ musicien.nomMusicien }} </div>
 
              <img src="data:image/png;base64,{{ musicien.base64Photo }}" height="200" width="250" alt=''>
                 <br>
