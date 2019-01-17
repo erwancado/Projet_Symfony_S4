@@ -108,8 +108,40 @@ class PanierController extends AbstractController
         $achat->setCodeEnregistrement($enregistrement);
         $em->persist($achat);
         $em->flush();
-
-
         return $this->redirect('/panier');
+    }
+
+    /**
+     * @Route("/panier/suppression_panier_enregistrement/{codeEnregistrement}", name="suppression_panier_enregistrement", methods={"GET"})
+     */
+    public function suppression_panier_enregistrement(int $codeEnregistrement){
+        $abonne = $this->getUser();
+        $achat=$this->getDoctrine()
+            ->getRepository(Achat::class)
+            ->findOneBy(['codeEnregistrement'=>$codeEnregistrement,'codeAbonne'=>$abonne->getCodeAbonne()]);
+        $this->getDoctrine()->getManager()
+            ->remove($achat);
+        $this->getDoctrine()->getManager()
+            ->flush();
+        return $this->redirect('/panier');
+
+    }
+
+    /**
+     * @Route("/panier/validation_panier", name="validation_panier")
+     */
+    public function validation_panier(){
+        $abonne = $this->getUser();
+        $achats = $this->getDoctrine()
+            ->getRepository(Achat::class)
+            ->findBy(['codeAbonne'=>$abonne->getCodeAbonne()]);
+        $em = $this->getDoctrine()->getManager();
+        foreach($achats as $achat){
+            $achat->setAchatConfirme(true);
+            $em->persist($achat);
+            $em->flush();
+        }
+        return $this->redirect('/historique');
+
     }
 }

@@ -24,17 +24,6 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
  */
 class PanierRepository extends EntityRepository
 {
-    public function addEnregistrement(Abonne $abonne, Enregistrement $enregistrement)
-    {
-        $em = $this->getEntityManager();
-        $rsm = new ResultSetMappingBuilder($em);
-        $rsm->addRootEntityFromClassMetadata(Achat::class, 'Achat');
-        $sql = "INSERT INTO Achat(Code_Enregistrement,Code_Abonne,Achat_Confirme)
-        VALUES (".$enregistrement->getCodeMorceau().",".$abonne->getCodeAbonne().",0)";
-        $query = $em->createNativeQuery($sql, $rsm);
-        $query->execute();
-        $em->commit();
-    }
 
     public function findPanierByAbonne(Abonne $abonne)
     {
